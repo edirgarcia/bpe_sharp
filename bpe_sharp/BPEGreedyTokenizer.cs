@@ -6,18 +6,15 @@ using System.Text;
 
 namespace bpe_sharp
 {
-    public class BPETokenizer : Tokenizer
+    public class BPEGreedyTokenizer : Tokenizer
     {
-
         public Dictionary<int, Dictionary<string, int>> encodingLookupDict = new Dictionary<int, Dictionary<string, int>>();
 
         public Dictionary<int, string> decodingLookupDict = new Dictionary<int, string>();
 
         public char spaceTokenChar = 'Ġ';
 
-
-
-        public BPETokenizer(string configPath)
+        public BPEGreedyTokenizer(string configPath)
         {
             this.Initialize(configPath);
         }
@@ -34,9 +31,7 @@ namespace bpe_sharp
             return sb.ToString().Replace(spaceTokenChar, ' ').Replace("\\", "");
         }
 
-        // I'm not sure if this is the right algorithm
         // this basically tries to fit the longest possible token and continue to traverse the string in reverse
-        // hugging face sometimes returns other tokens, maybe this is mitigated with large vocab sizes
         public override int[] Encode(string str)
         {
             str = str.Replace(' ', spaceTokenChar);
@@ -51,9 +46,7 @@ namespace bpe_sharp
 
             while (processedCharCount < str.Length)
             {
-                
                 string currFitToken = str.Substring(l, currFitTokenLen );
-
 
                 // escape slash // escape quotes
                 if (currFitToken.Contains("\\"))
@@ -67,7 +60,6 @@ namespace bpe_sharp
                     //processedCharCount++;
                 }
                 
-
                 if (encodingLookupDict[currFitTokenLen].ContainsKey(currFitToken))
                 {
                     int token = encodingLookupDict[currFitTokenLen][currFitToken];
@@ -94,7 +86,6 @@ namespace bpe_sharp
                     currFitTokenLen--;
                 }
             }
-
             return result.ToArray();
         }
 
@@ -129,11 +120,8 @@ namespace bpe_sharp
                         l = r + 1;
                     }
                     r++;
-
                 }
-
             }
-            
         }
 
 
@@ -160,7 +148,6 @@ namespace bpe_sharp
 
             encodingLookupDict[sizeKey].Add(key, value);
             decodingLookupDict.Add(value, key);
-
         }
     }
 }
