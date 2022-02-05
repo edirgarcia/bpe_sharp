@@ -16,7 +16,6 @@ namespace bpe_sharp
 
         public char spaceTokenChar = 'Ġ';
 
-
         public BPETreeTokenizer(string configPath)
         {
             this.Initialize(configPath);
@@ -155,7 +154,6 @@ namespace bpe_sharp
                 mergesTree[kvp[0]].Add(kvp[0] + kvp[1]);
             }
         }
-
 
         private void ProcessToken(string token)
         {

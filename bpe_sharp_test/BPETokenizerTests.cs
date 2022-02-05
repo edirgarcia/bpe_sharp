@@ -7,12 +7,12 @@ using Newtonsoft.Json.Converters;
 namespace bpe_sharp_test
 {
     [TestClass]
-    public class BPETreeTokenizerTests
+    public class BPETokenizerTests
     {
         [TestMethod]
         public void TestBPETokenizer_Initialize()
         {
-            BPETreeTokenizer tokenizer = new BPETreeTokenizer("resources/tokenizer.json");
+            BPETokenizer tokenizer = new BPETokenizer("resources/tokenizer.json");
 
             // These asserts are only valid with the tokenizer configuration that is checked in.
             // if you want to use another file and run through this test, remove these asserts.
@@ -27,24 +27,12 @@ namespace bpe_sharp_test
         [TestMethod]
         public void TestBPETokenizer_Encode()
         {
-            BPETreeTokenizer tokenizer = new BPETreeTokenizer("resources/tokenizer.json");
+            BPETokenizer tokenizer = new BPETokenizer("resources/tokenizer.json");
 
             int[] result = tokenizer.Encode(TestUtils.testReview);
 
-            Dictionary<string, int> expectedTrigramDict = TestUtils.ConvertToTrigramDictionary(TestUtils.encodedTestReview);
-            Dictionary<string, int> trigramDict = TestUtils.ConvertToTrigramDictionary(result);
-
-            float similarity = TestUtils.TrigramSimilarity(expectedTrigramDict, trigramDict);
-
-            //This implementation is worse :(
-            Assert.IsTrue(similarity > .75);
-
-            List<string> notEqualIds = new List<string>();
-
-            //for (int i = 0; i < result.Length; i++)
-            //    //Assert.AreEqual(expectedResult[i], result[i]," Index " + i + " is not the same");
-            //    if (expectedResult[i] != result[i])
-            //        notEqualIds.Add("index " + i + " : " + expectedResult[i] + "<>" + result[i]);
+            for (int i = 0; i < result.Length; i++)
+                Assert.AreEqual(TestUtils.encodedTestReview[i], result[i]," Index " + i + " is not the same");
 
             Console.Out.WriteLine("done");
         }
@@ -52,7 +40,7 @@ namespace bpe_sharp_test
         [TestMethod]
         public void TestBPETokenizer_Decode()
         {
-            BPETreeTokenizer tokenizer = new BPETreeTokenizer("resources/tokenizer.json");
+            BPETokenizer tokenizer = new BPETokenizer("resources/tokenizer.json");
 
             string result = tokenizer.Decode(TestUtils.encodedTestReview);
 
@@ -67,7 +55,7 @@ namespace bpe_sharp_test
         [TestMethod]
         public void TestBPETokenizer_EncodeDecode()
         {
-            BPETreeTokenizer tokenizer = new BPETreeTokenizer("resources/tokenizer.json");
+            BPETokenizer tokenizer = new BPETokenizer("resources/tokenizer.json");
 
             int[] encodeResult = tokenizer.Encode(TestUtils.testReview);
                 
