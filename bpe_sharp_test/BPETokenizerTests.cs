@@ -29,7 +29,7 @@ namespace bpe_sharp_test
         {
             BPETokenizer tokenizer = new BPETokenizer("resources/tokenizer.json");
 
-            int[] result = tokenizer.Encode(TestUtils.testReview);
+            double[] result = tokenizer.Encode(TestUtils.testReview);
 
             for (int i = 0; i < result.Length; i++)
                 Assert.AreEqual(TestUtils.encodedTestReview[i], result[i]," Index " + i + " is not the same");
@@ -57,7 +57,7 @@ namespace bpe_sharp_test
         {
             BPETokenizer tokenizer = new BPETokenizer("resources/tokenizer.json");
 
-            int[] encodeResult = tokenizer.Encode(TestUtils.testReview);
+            double[] encodeResult = tokenizer.Encode(TestUtils.testReview);
                 
             string decodeResult = tokenizer.Decode(encodeResult);
 

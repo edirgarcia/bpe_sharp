@@ -21,7 +21,7 @@ namespace bpe_sharp
             this.Initialize(configPath);
         }
 
-        public override string Decode(int[] enc)
+        public override string Decode(double[] enc)
         {
             StringBuilder sb = new StringBuilder();
 
@@ -35,11 +35,11 @@ namespace bpe_sharp
 
         // This looks for the longest token match traversing thorugh the merges Tree
         //It's slower than the Greedy implementation, but it might match HuggingFace rust code better //We'll see
-        public override int[] Encode(string str)
+        public override double[] Encode(string str)
         {
             str = str.Replace(' ', spaceTokenChar);
 
-            List<int> result = new List<int>();
+            List<double> result = new List<double>();
 
             while (str!= "")
             {
