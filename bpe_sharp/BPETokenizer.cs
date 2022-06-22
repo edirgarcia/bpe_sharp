@@ -46,7 +46,7 @@ namespace bpe_sharp
             }
         }
 
-        public override string Decode(double[] enc)
+        public override string Decode(Int64[] enc)
         {
             StringBuilder sb = new StringBuilder();
 
@@ -60,9 +60,9 @@ namespace bpe_sharp
 
         // Encode as described by
         // https://guillaume-be.github.io/2021-09-16/byte_pair_encoding#bpe-tokenization-naive
-        public override double[] Encode(string str)
+        public override Int64[] Encode(string str)
         {
-            List<double> result = new List<double>();
+            List<Int64> result = new List<Int64>();
 
             List<string> allSymbols = new List<string>();
 

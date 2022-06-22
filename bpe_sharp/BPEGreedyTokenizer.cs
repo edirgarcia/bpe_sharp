@@ -19,7 +19,7 @@ namespace bpe_sharp
             this.Initialize(configPath);
         }
 
-        public override string Decode(double[] enc)
+        public override string Decode(Int64[] enc)
         {
             StringBuilder sb = new StringBuilder();
 
@@ -32,14 +32,14 @@ namespace bpe_sharp
         }
 
         // this basically tries to fit the longest possible token and continue to traverse the string in reverse
-        public override double[] Encode(string str)
+        public override Int64[] Encode(string str)
         {
             str = str.Replace(' ', spaceTokenChar);
 
             int maxTokenLen = this.encodingLookupDict.Count;
             int l = str.Length - maxTokenLen;
 
-            List<double> result = new List<double>();
+            List<Int64> result = new List<Int64>();
 
             int currFitTokenLen = maxTokenLen ;
             int processedCharCount = 0;

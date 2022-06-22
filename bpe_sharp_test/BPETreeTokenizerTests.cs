@@ -29,10 +29,10 @@ namespace bpe_sharp_test
         {
             BPETreeTokenizer tokenizer = new BPETreeTokenizer("resources/tokenizer.json");
 
-            double[] result = tokenizer.Encode(TestUtils.testReview);
+            Int64[] result = tokenizer.Encode(TestUtils.testReview);
 
-            Dictionary<string, double> expectedTrigramDict = TestUtils.ConvertToTrigramDictionary(TestUtils.encodedTestReview);
-            Dictionary<string, double> trigramDict = TestUtils.ConvertToTrigramDictionary(result);
+            Dictionary<string, Int64> expectedTrigramDict = TestUtils.ConvertToTrigramDictionary(TestUtils.encodedTestReview);
+            Dictionary<string, Int64> trigramDict = TestUtils.ConvertToTrigramDictionary(result);
 
             float similarity = TestUtils.TrigramSimilarity(expectedTrigramDict, trigramDict);
 
@@ -69,7 +69,7 @@ namespace bpe_sharp_test
         {
             BPETreeTokenizer tokenizer = new BPETreeTokenizer("resources/tokenizer.json");
 
-            double[] encodeResult = tokenizer.Encode(TestUtils.testReview);
+            Int64[] encodeResult = tokenizer.Encode(TestUtils.testReview);
                 
             string decodeResult = tokenizer.Decode(encodeResult);
 

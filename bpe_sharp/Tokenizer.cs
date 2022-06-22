@@ -4,9 +4,9 @@ namespace bpe_sharp
 {
     public abstract class Tokenizer
     {
-        public abstract double[] Encode(string str);
+        public abstract Int64[] Encode(string str);
 
-        public abstract string Decode(double[] enc);
+        public abstract string Decode(Int64[] enc);
 
         public abstract void Initialize(string configPath);
     }
