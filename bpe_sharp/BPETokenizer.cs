@@ -95,7 +95,10 @@ namespace bpe_sharp
             
             foreach (string symbol in allSymbols)
             {
-                result.Add(encodingLookupDict[symbol.Length][symbol]);
+                if(symbol != null && encodingLookupDict.ContainsKey(symbol.Length))
+                {
+                    result.Add(encodingLookupDict[symbol.Length][symbol]);
+                }
             }
 
             return result.ToArray();
@@ -136,7 +139,7 @@ namespace bpe_sharp
 
             foreach(char c in charArr)
             {
-                result.Add( c + "" );
+                result.Add(c.ToString());
             }
             return result;
         }
