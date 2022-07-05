@@ -19,6 +19,10 @@ namespace bpe_sharp
 
         public char spaceTokenChar = 'Ġ';
 
+        // you can customize this to your desired configuration.
+        // RoBERTa by default has 512
+        public int robertaMaxSeqLen = 512;
+
         public BPETokenizer(string configPath)
         {
             this.Initialize(configPath);
@@ -93,8 +97,9 @@ namespace bpe_sharp
                 allSymbols.AddRange(symbols);
             }
             
-            foreach (string symbol in allSymbols)
+            for (int i = 0; i<Math.Min(allSymbols.Count, robertaMaxSeqLen); i++ )
             {
+                string symbol = allSymbols[i];
                 if(symbol != null && encodingLookupDict.ContainsKey(symbol.Length))
                 {
                     result.Add(encodingLookupDict[symbol.Length][symbol]);
